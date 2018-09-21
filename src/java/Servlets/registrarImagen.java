@@ -10,8 +10,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nilmc
  */
-@WebServlet(name = "Inicialitzar_DB", urlPatterns = {"/Inicialitzar_DB"})
-public class Inicialitzar_DB extends HttpServlet {
+@WebServlet(name = "registrarImagen", urlPatterns = {"/registrarImagen"})
+public class registrarImagen extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,27 +40,43 @@ public class Inicialitzar_DB extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+                
         Connection connection = null;
-        
         try {
-            Class.forName("org.sqlite.JDBC");   
+            out.println("FUNCIONA SERVLET");
+            
+            
+          String titulo = request.getParameter("titulo");
+          String descripcion = request.getParameter("descripcion");
+          String palabras_clave = request.getParameter("palabras_clave");
+          String autor = request.getParameter("autor");
+          String fecha_creacion = request.getParameter("fecha_creacion");
+          String nom = request.getParameter("nom");
+          java.util.Date fecha_alta = new Date();
+            
+          Class.forName("org.sqlite.JDBC");   
           
           connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
-          Statement statement = connection.createStatement();
-          statement.setQueryTimeout(30);  // set timeout to 30 sec.
+          /*reparedStatement statement = connection.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ?, ?)");
+          statement.setString(1,titulo);
+          statement.setString(2,descripcion);
+          statement.setString(3,palabras_clave);
+          statement.setString(4,autor);
+          statement.setString(5,fecha_creacion);
+          statement.setString(6,nom);
+          statement.setString(7, fecha_alta.toString());
           
-          statement.executeUpdate("drop table if exists usuarios");
-          statement.executeUpdate("drop table if exists imagenes");
+          statement.executeQuery();*/
           
-          statement.executeUpdate("create table imagenes (id_imagen string auto_increment primary key, titulo string, descripcion string,"
-                                + "palabras_clave string, autor string, fecha_creacion string, nombre string)");
+          Statement s = connection.createStatement();
+          ResultSet r = s.executeQuery("select * from imagenes");
+            
+          if(r.next()) out.println("OK");
+          else out.println("ERROR");
           
-          statement.executeUpdate("insert into imagenes values ('A','A','A','A','1111-01-01','s','1111-01-01')");
           
-          statement.executeUpdate("create table usuarios (id_usuario string primary key, password string)");
-          statement.executeUpdate("insert into usuarios values('Silvia','12345')");
-          statement.executeUpdate("insert into usuarios values('Pepito','23456')");
-        } catch(SQLException e)
+        }
+        catch(SQLException e)
         {
           System.err.println(e.getMessage());
         } catch (ClassNotFoundException e) {
