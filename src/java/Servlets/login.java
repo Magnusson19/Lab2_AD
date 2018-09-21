@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,36 +46,21 @@ public class login extends HttpServlet {
         
         Connection connection = null;
         try {
-          Class.forName("org.sqlite.JDBC");   
-          java.util.Date d = new java.util.Date();
-          out.println("La fecha actual es " + d);
-          
-          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\exemple.db");
-          Statement statement = connection.createStatement();
-          statement.setQueryTimeout(30);  // set timeout to 30 sec.
-          
-          statement.executeUpdate("drop table if exists usuarios");
-          
-          statement.executeUpdate("create table usuarios (id_usuario string primary key, password string)");
-          statement.executeUpdate("insert into usuarios values('Silvia','12345')");
-          statement.executeUpdate("insert into usuarios values('Pepito','23456')");
-          
-          ResultSet rs = statement.executeQuery("select * from usuarios");
-          
-          boolean trobat = false;
           String user = request.getParameter("uname");
           String password = request.getParameter("psw");
+            
+          Class.forName("org.sqlite.JDBC");   
+          
+          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\exemple.db");
+          PreparedStatement statement = connection.prepareStatement("select * from usuarios where id_usuario = ? and password = ?");
+          statement.setString(1, user);
+          statement.setString(2, password);
+          
+          ResultSet rs = statement.executeQuery();
           
           
-          while(rs.next()) {
-              if (rs.getString("id_usuario").equals(user)) {
-                  if (rs.getString("password").equals(password)) {
-                      trobat = true;
-                  }
-              }
-          }
-          if (trobat) out.println("OK");
-          else response.sendRedirect("error?pagina=login");
+          if (!rs.next()) response.sendRedirect("error?pagina=login");
+          else response.sendRedirect("menu.jsp");
           
         }
         catch(SQLException e)
