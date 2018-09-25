@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nilmc
  */
-@WebServlet(name = "registrarImagen", urlPatterns = {"/registrarImagen"})
-public class registrarImagen extends HttpServlet {
+@WebServlet(name = "modificarImagen", urlPatterns = {"/modificarImagen"})
+public class modificarImagen extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

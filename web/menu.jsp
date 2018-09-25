@@ -13,5 +13,9 @@
     </head>
     <body>
         <h2>Benvingut al Menu</h2>
+        <form>
+            <p> <a href='registrarImagen.jsp'>Registrar una imatge</a></p>
+            <br>
+        </form>
     </body>
 </html>
