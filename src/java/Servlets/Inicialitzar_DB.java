@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.ServletException;
@@ -50,14 +51,29 @@ public class Inicialitzar_DB extends HttpServlet {
           statement.executeUpdate("drop table if exists usuarios");
           statement.executeUpdate("drop table if exists imagenes");
           
-          statement.executeUpdate("create table imagenes (id_imagen string auto_increment primary key, titulo string, descripcion string,"
-                                + "palabras_clave string, autor string, fecha_creacion string, nombre string)");
+          statement.executeUpdate("create table imagenes (id_imagen int primary key, titulo string, descripcion string," 
+                                + "palabras_clave string, autor string, fecha_creacion string, nombre string, fecha_alta string)");
           
-          statement.executeUpdate("insert into imagenes values ('A','A','A','A','1111-01-01','s','1111-01-01')");
+          statement.executeUpdate("insert into imagenes values (1,'A','hola aixo es un text','A','A','1111-01-01','s','1111-01-01')");
           
           statement.executeUpdate("create table usuarios (id_usuario string primary key, password string)");
           statement.executeUpdate("insert into usuarios values('Silvia','12345')");
           statement.executeUpdate("insert into usuarios values('Pepito','23456')");
+          
+            ResultSet rs = statement.executeQuery("select * from imagenes");
+            rs.next();
+          
+          if (rs.getInt("id_imagen") == 1) {
+              out.println("<html> "
+                      + "<body> "
+                      + "<h3>Registre realitzat!</h3>"
+                      + "<form>"
+                      + "<p> </p>"
+                      + "</form> "
+                      + "</body>"
+                      + "</html>");
+          } else {
+          }
         } catch(SQLException e)
         {
           System.err.println(e.getMessage());

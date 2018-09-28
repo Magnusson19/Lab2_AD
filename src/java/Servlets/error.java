@@ -7,6 +7,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,7 @@ public class error extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter();
             if (request.getParameter("pagina").equals("login")) {
                 out.println("<html> "
                             + "<body> "
@@ -43,8 +44,23 @@ public class error extends HttpServlet {
                                 + "</form> "
                             + "</body>"
                           + "</html>");
-            } 
-        }
+            }
+            else if (request.getParameter("pagina").equals("buida")) {
+                out.println("<html> "
+                            + "<body> "
+                                + "<h3>BD buida</h3>"
+                                    + "<p> <a href='registrarImagen.jsp'>Tornar a registrar una imatge</a></p>"
+                            + "</body>"
+                          + "</html>");
+            }
+            else if (request.getParameter("pagina").equals("exists")) {
+                out.println("<html> "
+                            + "<body> "
+                                + "<h3>L'imatge ja exisetix</h3>"
+                                    + "<p> <a href='registrarImagen.jsp'>Tornar a registrar una imatge</a></p>"
+                            + "</body>"
+                          + "</html>");
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

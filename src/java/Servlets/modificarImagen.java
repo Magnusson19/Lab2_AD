@@ -45,27 +45,29 @@ public class modificarImagen extends HttpServlet {
                 
         Connection connection = null;
         try {
-            
-            
+          
+          int id = Integer.parseInt(request.getParameter("id"));  //Perque no agafa l'1 si es passa per parametre?
           String titulo = request.getParameter("titulo");
           String descripcion = request.getParameter("descripcion");
           String palabras_clave = request.getParameter("palabras_clave");
           String autor = request.getParameter("autor");
           String fecha_creacion = request.getParameter("fecha_creacion");
-          String nom = request.getParameter("nom");
-          java.util.Date fecha_alta = new Date();
+          //NOMES S'HA D'AGAFAR EL NOM DEL FITXER
+          
           
           Class.forName("org.sqlite.JDBC");   
           
           connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
-          PreparedStatement statement = connection.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ?, ?)");
+          PreparedStatement statement = connection.prepareStatement("update imagenes set titulo=?, descripcion=?,"
+                                                                   +"palabras_clave=?, autor=?, fecha_creacion=?, nombre=? where id_imagen=?");
+          
           statement.setString(1,titulo);
           statement.setString(2,descripcion);
           statement.setString(3,palabras_clave);
           statement.setString(4,autor);
           statement.setString(5,fecha_creacion);
-          statement.setString(6,nom);
-          statement.setString(7, fecha_alta.toString());
+          //statement.setString(6,nom);
+          statement.setInt(7, id);
           
           int i = statement.executeUpdate();
           
@@ -81,12 +83,6 @@ public class modificarImagen extends HttpServlet {
                             + "</body>"
                           + "</html>");
           }
-          /*Statement s = connection.createStatement();
-          ResultSet r = s.executeQuery("select * from imagenes where titulo = 'hola' ");
-            
-          if(r.next()) out.println("OK");
-          else out.println("ERROR");*/
-          
           
         }
         catch(SQLException e)

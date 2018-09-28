@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Registrar Imagen</h1>
-        <form action="registrarImagen">
+        <form action="registrarImagen" method="POST" enctype="multipart/form-data">
             <label for="titulo"><b>Título</b></label>
             <input type="text" name="titulo" required >
             <br><br>
@@ -31,9 +31,6 @@
             <br><br>
             <label for="imagen"><b>Inserta Imagen</b></label>
             <input type="file" name="imagen" required>
-            <br><br>
-            <label for="nom"><b>Nombre del fichero</b></label>
-            <input type="text" name="nom" required>
             <br><br>
             <input type="submit" value="Submit">
         </form>
