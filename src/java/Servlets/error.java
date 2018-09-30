@@ -61,6 +61,30 @@ public class error extends HttpServlet {
                             + "</body>"
                           + "</html>");
             }
+            else if (request.getParameter("pagina").equals("existsM")) {
+                out.println("<html> "
+                            + "<body> "
+                                + "<h3>L'imatge ja exisetix</h3>"
+                                    + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"
+                            + "</body>"
+                          + "</html>");
+            }
+            else if (request.getParameter("pagina").equals("format")) {
+                out.println("<html> "
+                            + "<body> "
+                                + "<h3>Format d'imatge incorrecte</h3>"
+                                    + "<p> <a href='registrarImagen.jsp'>Tornar a registrar una imatge</a></p>"
+                            + "</body>"
+                          + "</html>");
+            }
+            else if (request.getParameter("pagina").equals("formatM")) {
+                out.println("<html> "
+                            + "<body> "
+                                + "<h3>Format d'imatge incorrecte</h3>"
+                                    + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"
+                            + "</body>"
+                          + "</html>");
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

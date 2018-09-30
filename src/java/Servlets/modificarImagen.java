@@ -58,64 +58,79 @@ public class modificarImagen extends HttpServlet {
           
                 final String path = "C:\\Users\\nilmc\\OneDrive\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
                 final Part filePart = request.getPart("imagen");
+                String type = filePart.getContentType();
+                if (!type.equals("jpeg")) {
+                    response.sendRedirect("error?pagina=formatM");
+                    return;
+                }
                 final String fileName = getFileName(filePart);
-                OutputStream outS = null;
-                InputStream filecontent = null;
-                try {
-                    outS = new FileOutputStream(new File(path + File.separator
-                            + fileName));
-                    filecontent = filePart.getInputStream();
+                
+                PreparedStatement ps = connection.prepareStatement("select * from imagenes where nombre=?");
+                ps.setString(1, fileName);
 
-                    int read = 0;
-                    final byte[] bytes = new byte[1024];
+                ResultSet rs = ps.executeQuery();
+            
 
-                    while ((read = filecontent.read(bytes)) != -1) {
-                        outS.write(bytes, 0, read);
+                if (!rs.next()) {
+                    OutputStream outS = null;
+                    InputStream filecontent = null;
+                    try {
+                        outS = new FileOutputStream(new File(path + File.separator
+                                + fileName));
+                        filecontent = filePart.getInputStream();
+
+                        int read = 0;
+                        final byte[] bytes = new byte[1024];
+
+                        while ((read = filecontent.read(bytes)) != -1) {
+                            outS.write(bytes, 0, read);
+                        }
+                    } catch (FileNotFoundException fne) {
+                        out.println("You either did not specify a file to upload or are "
+                                + "trying to upload a file to a protected or nonexistent "
+                                + "location.");
+                        out.println("<br/> ERROR: " + fne.getMessage());
+
+                    } finally {
+                        if (outS != null) {
+                            outS.close();
+                        }
+                        if (filecontent != null) {
+                            filecontent.close();
+                        }
                     }
-                } catch (FileNotFoundException fne) {
-                    out.println("You either did not specify a file to upload or are "
-                            + "trying to upload a file to a protected or nonexistent "
-                            + "location.");
-                    out.println("<br/> ERROR: " + fne.getMessage());
 
-                } finally {
-                    if (outS != null) {
-                        outS.close();
-                    }
-                    if (filecontent != null) {
-                        filecontent.close();
+                    int id = Integer.parseInt(request.getParameter("id"));  //Perque no agafa l'1 si es passa per parametre?
+                    String titulo = request.getParameter("titulo");
+                    String descripcion = request.getParameter("descripcion");
+                    String palabras_clave = request.getParameter("palabras_clave");
+                    String autor = request.getParameter("autor");
+                    String fecha_creacion = request.getParameter("fecha_creacion");
+
+
+                    PreparedStatement statement = connection.prepareStatement("update imagenes set titulo=?, descripcion=?,"
+                                                                             +"palabras_clave=?, autor=?, fecha_creacion=?, nombre=? where id_imagen=?");
+
+                    statement.setString(1,titulo);
+                    statement.setString(2,descripcion);
+                    statement.setString(3,palabras_clave);
+                    statement.setString(4,autor);
+                    statement.setString(5,fecha_creacion);
+                    statement.setString(6,fileName);
+                    statement.setInt(7, id);
+
+                    int i = statement.executeUpdate();
+
+                    if (i > 0) {
+                        out.println("<html> "
+                                      + "<body> "
+                                          + "<h3>Modificació realitzada!</h3>"
+                                              + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"
+                                      + "</body>"
+                                    + "</html>");
                     }
                 }
-          
-          int id = Integer.parseInt(request.getParameter("id"));  //Perque no agafa l'1 si es passa per parametre?
-          String titulo = request.getParameter("titulo");
-          String descripcion = request.getParameter("descripcion");
-          String palabras_clave = request.getParameter("palabras_clave");
-          String autor = request.getParameter("autor");
-          String fecha_creacion = request.getParameter("fecha_creacion");
-          
-          
-          PreparedStatement statement = connection.prepareStatement("update imagenes set titulo=?, descripcion=?,"
-                                                                   +"palabras_clave=?, autor=?, fecha_creacion=?, nombre=? where id_imagen=?");
-          
-          statement.setString(1,titulo);
-          statement.setString(2,descripcion);
-          statement.setString(3,palabras_clave);
-          statement.setString(4,autor);
-          statement.setString(5,fecha_creacion);
-          statement.setString(6,fileName);
-          statement.setInt(7, id);
-          
-          int i = statement.executeUpdate();
-          
-          if (i > 0) {
-              out.println("<html> "
-                            + "<body> "
-                                + "<h3>Modificació realitzada!</h3>"
-                                    + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"
-                            + "</body>"
-                          + "</html>");
-          }
+                else response.sendRedirect("error?pagina=existsM");
           
         }
         catch(SQLException e)

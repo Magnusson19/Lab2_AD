@@ -62,6 +62,11 @@ public class registrarImagen extends HttpServlet {
             
             final String path = "C:\\Users\\nilmc\\OneDrive\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
             final Part filePart = request.getPart("imagen");
+            String type = filePart.getContentType();
+            if (!type.equals("jpeg")) {
+                response.sendRedirect("error?pagina=format");
+                return;
+            } 
             final String fileName = getFileName(filePart);
 
             PreparedStatement ps = connection.prepareStatement("select * from imagenes where nombre=?");

@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <c:choose>
     <c:when test="${sessionScope.nombre == null}">
@@ -36,7 +39,7 @@
             <input type="date" name="fecha_creacion" required>
             <br><br>
             <label for="imagen"><b>Inserta Imagen</b></label>
-            <input type="file" name="imagen" required>
+            <input type="file" name="imagen" accept="image/JPEG" required>
             <br><br>
             <input type="submit" value="Submit">
         </form>

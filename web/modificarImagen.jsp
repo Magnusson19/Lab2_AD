@@ -48,7 +48,7 @@
             <input type="date" name="fecha_creacion" value="${result.rows[0].fecha_creacion}">
             <br><br>
             <label for="imagen"><b>Inserta Imagen</b></label>
-            <input type="file" name="imagen" value="${result.rows[0].imagen}">
+            <input type="file" name="imagen" value="${result.rows[0].imagen}" accept="image/JPEG">
             <br><br>
             <input type="hidden" name="id" value="${result.rows[0].id_imagen}">
             <input type="hidden" name="fecha_alta" value="${result.rows[0].fecha_alta}">
