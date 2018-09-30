@@ -9,6 +9,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
+<c:choose>
+    <c:when test="${sessionScope.nombre == null}">
+        <c:redirect url="login.jsp"> </c:redirect>
+    </c:when>
+</c:choose>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="image; charset=UTF-8">
@@ -22,13 +28,10 @@
         <sql:query dataSource = "${snapshot}" var = "result">
             SELECT * from imagenes where id_imagen=<%=Integer.parseInt(request.getParameter("id"))%>
         </sql:query>
-         
-         <c:forEach var="row" items="${result.rows}">
-             <c:out value="${row}"/>
-         </c:forEach>
+        
                   
         <h1>Modificar Imagen</h1>
-        <form action="modificarImagen" method="POST">
+        <form action="modificarImagen" method="POST" enctype="multipart/form-data">
             <label for="titulo"><b>Título</b></label>
             <input type="text" name="titulo" value="${result.rows[0].titulo}">
             <br><br>

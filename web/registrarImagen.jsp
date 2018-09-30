@@ -6,6 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<c:choose>
+    <c:when test="${sessionScope.nombre == null}">
+        <c:redirect url="login.jsp"> </c:redirect>
+    </c:when>
+</c:choose>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="image; charset=UTF-8">

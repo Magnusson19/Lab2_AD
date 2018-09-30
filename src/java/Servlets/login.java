@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,6 +46,7 @@ public class login extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         Connection connection = null;
+        
         try {
           String user = request.getParameter("uname");
           String password = request.getParameter("psw");
@@ -60,7 +62,11 @@ public class login extends HttpServlet {
           
           
           if (!rs.next()) response.sendRedirect("error?pagina=login");
-          else response.sendRedirect("menu.jsp");
+          else {
+              HttpSession session=request.getSession();
+                session.setAttribute("nombre",user);
+              response.sendRedirect("menu.jsp");
+          }
           
         }
         catch(SQLException e)
