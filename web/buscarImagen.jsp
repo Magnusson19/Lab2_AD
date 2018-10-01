@@ -5,7 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
+<c:choose>
+    <c:when test="${sessionScope.nombre == null}">
+        <c:redirect url="login.jsp"> </c:redirect>
+    </c:when>
+</c:choose>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

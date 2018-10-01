@@ -54,9 +54,9 @@ public class modificarImagen extends HttpServlet {
         try {
             Class.forName("org.sqlite.JDBC");   
           
-          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\myPC\\Desktop\\LAB1.db");
+          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
           
-                final String path = "C:\\Users\\myPC\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
+                final String path = "C:\\Users\\nilmc\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
                 final Part filePart = request.getPart("imagen");
                 String type = filePart.getContentType();
                 if (!type.equals("image/jpeg")) {

@@ -23,7 +23,7 @@
     </head>
     
         <sql:setDataSource var = "snapshot" driver = "org.sqlite.JDBC"
-         url = "jdbc:sqlite:C:\\Users\\myPC\\Desktop\\LAB1.db"/>
+         url = "jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db"/>
         
                 
         <sql:query dataSource = "${snapshot}" var = "result">
