@@ -19,6 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="image; charset=UTF-8">
         <title>Registrar_Imatge</title>
+        <link rel="stylesheet" type="text/css" href="style/estilos.css">
     </head>
     <body>
         <h1>Registrar Imagen</h1>
@@ -41,7 +42,7 @@
             <label for="imagen"><b>Inserta Imagen</b></label>
             <input type="file" name="imagen" accept="image/JPEG" required>
             <br><br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="botonMenu">
         </form>
     </body>
 </html>

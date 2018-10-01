@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="style/estilos.css">
     </head>
     <body>
         <h1>Benvingut!</h1>
@@ -19,7 +20,8 @@
             <br><br>
             <label for="psw"><b>Password</b></label>
             <input type="password" name="psw" required>
-            <input type="submit" value="Submit">
+            <br><br>
+            <input type="submit" value="Submit" class="botonMenu">
         </form>
         
     </body>

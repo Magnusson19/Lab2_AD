@@ -54,12 +54,12 @@ public class modificarImagen extends HttpServlet {
         try {
             Class.forName("org.sqlite.JDBC");   
           
-          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
+          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\myPC\\Desktop\\LAB1.db");
           
-                final String path = "C:\\Users\\nilmc\\OneDrive\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
+                final String path = "C:\\Users\\myPC\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
                 final Part filePart = request.getPart("imagen");
                 String type = filePart.getContentType();
-                if (!type.equals("jpeg")) {
+                if (!type.equals("image/jpeg")) {
                     response.sendRedirect("error?pagina=formatM");
                     return;
                 }
@@ -123,6 +123,7 @@ public class modificarImagen extends HttpServlet {
 
                     if (i > 0) {
                         out.println("<html> "
+                                + "<head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head>"
                                       + "<body> "
                                           + "<h3>Modificació realitzada!</h3>"
                                               + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"

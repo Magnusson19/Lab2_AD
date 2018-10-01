@@ -53,7 +53,7 @@ public class login extends HttpServlet {
             
           Class.forName("org.sqlite.JDBC");   
           
-          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
+          connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\myPC\\Desktop\\LAB1.db");
           PreparedStatement statement = connection.prepareStatement("select * from usuarios where id_usuario = ? and password = ?");
           statement.setString(1, user);
           statement.setString(2, password);

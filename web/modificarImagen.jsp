@@ -19,10 +19,11 @@
     <head>
         <meta http-equiv="Content-Type" content="image; charset=UTF-8">
         <title>Modificar_Imatge</title>
+        <link rel="stylesheet" type="text/css" href="style/estilos.css">
     </head>
     
         <sql:setDataSource var = "snapshot" driver = "org.sqlite.JDBC"
-         url = "jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db"/>
+         url = "jdbc:sqlite:C:\\Users\\myPC\\Desktop\\LAB1.db"/>
         
                 
         <sql:query dataSource = "${snapshot}" var = "result">
@@ -53,7 +54,7 @@
             <input type="hidden" name="id" value="${result.rows[0].id_imagen}">
             <input type="hidden" name="fecha_alta" value="${result.rows[0].fecha_alta}">
             <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="botonMenu">
         </form>
     
 </html>

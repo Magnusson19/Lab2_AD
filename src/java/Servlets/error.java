@@ -36,7 +36,7 @@ public class error extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
             if (request.getParameter("pagina").equals("login")) {
-                out.println("<html> "
+                out.println("<html><head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head> "
                             + "<body> "
                                 + "<h3>Usuari o contrassenya incorrecte</h3>"
                                 + "<form>"
@@ -46,7 +46,7 @@ public class error extends HttpServlet {
                           + "</html>");
             }
             else if (request.getParameter("pagina").equals("buida")) {
-                out.println("<html> "
+                out.println(" <html><head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head> "
                             + "<body> "
                                 + "<h3>BD buida</h3>"
                                     + "<p> <a href='registrarImagen.jsp'>Tornar a registrar una imatge</a></p>"
@@ -54,7 +54,7 @@ public class error extends HttpServlet {
                           + "</html>");
             }
             else if (request.getParameter("pagina").equals("exists")) {
-                out.println("<html> "
+                out.println("<html><head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head> "
                             + "<body> "
                                 + "<h3>L'imatge ja exisetix</h3>"
                                     + "<p> <a href='registrarImagen.jsp'>Tornar a registrar una imatge</a></p>"
@@ -62,7 +62,7 @@ public class error extends HttpServlet {
                           + "</html>");
             }
             else if (request.getParameter("pagina").equals("existsM")) {
-                out.println("<html> "
+                out.println("<html><head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head> "
                             + "<body> "
                                 + "<h3>L'imatge ja exisetix</h3>"
                                     + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"
@@ -70,7 +70,7 @@ public class error extends HttpServlet {
                           + "</html>");
             }
             else if (request.getParameter("pagina").equals("format")) {
-                out.println("<html> "
+                out.println("< <html><head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head> "
                             + "<body> "
                                 + "<h3>Format d'imatge incorrecte</h3>"
                                     + "<p> <a href='registrarImagen.jsp'>Tornar a registrar una imatge</a></p>"
@@ -78,7 +78,7 @@ public class error extends HttpServlet {
                           + "</html>");
             }
             else if (request.getParameter("pagina").equals("formatM")) {
-                out.println("<html> "
+                out.println(" <html><head><link rel='stylesheet' type='text/css' href='style/estilos.css'></head>> "
                             + "<body> "
                                 + "<h3>Format d'imatge incorrecte</h3>"
                                     + "<p> <a href='menu.jsp'>Tornar al menú</a></p>"

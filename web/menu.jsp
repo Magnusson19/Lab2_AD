@@ -18,15 +18,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu</title>
+        <link rel="stylesheet" type="text/css" href="style/estilos.css">
     </head>
     <body>
         <h2>Benvingut al Menu</h2>
         <form>
-            <p> <a href='registrarImagen.jsp'>Registrar una imatge</a></p>
+            <p> <a href='registrarImagen.jsp' class="botonMenu">Registrar una imatge</a></p>
             <br>
-            <p> <a href='list.jsp'>Llistar totes les imatges</a></p>
+            <p> <a href='list.jsp' class="botonMenu">Llistar totes les imatges</a></p>
             <br>
-            <p> <a href='logout.jsp'>Sortir de la sessió</a></p>
+            <p> <a href='buscarImagen.jsp' class="botonMenu">Buscar imatge</a></p>
+            <br>
+            <p> <a href='logout.jsp' class="botonMenu">Sortir de la sessió</a></p>
             <br>
         </form>
     </body>
