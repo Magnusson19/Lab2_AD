@@ -59,24 +59,33 @@ public class registrarImagen extends HttpServlet {
 
             connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
             
-            
-            final String path = "C:\\Users\\nilmc\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
+            ResultSet r;
+            Statement s = connection.createStatement();
+            r = s.executeQuery("select id_imagen, max(id_imagen) from imagenes");
+            int id = 0;
+            if (r.next()) id = r.getInt("id_imagen");
+            else response.sendRedirect("error?pagina=buida"); //taula buida
+                        
+            final String path = "C:\\Users\\nilmc\\OneDrive\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
             final Part filePart = request.getPart("imagen");
+            String fileName = null;
             String type = filePart.getContentType();
             if (!type.equals("image/jpeg")) {
                 response.sendRedirect("error?pagina=format");
                 return;
             } 
-            final String fileName = getFileName(filePart);
+            fileName = getFileName(filePart);
 
             PreparedStatement ps = connection.prepareStatement("select * from imagenes where nombre=?");
             ps.setString(1, fileName);
 
             ResultSet rs = ps.executeQuery();
             
+            if (rs.next()) {
+                fileName = fileName + id;
+            }
+            
 
-            if (!rs.next()) {
-                
                 OutputStream outS = null;
                 InputStream filecontent = null;
                 try {
@@ -115,11 +124,6 @@ public class registrarImagen extends HttpServlet {
                 String fecha_creacion = request.getParameter("fecha_creacion");
                 java.util.Date fecha_alta = new Date();
                 
-                Statement s = connection.createStatement();
-                rs = s.executeQuery("select id_imagen, max(id_imagen) from imagenes");
-                int id = 0;
-                if (rs.next()) id = rs.getInt("id_imagen");
-                else response.sendRedirect("error?pagina=buida"); //taula buida
                 
                 PreparedStatement statement = connection.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -147,8 +151,6 @@ public class registrarImagen extends HttpServlet {
                                     + "</body>"
                                 + "</html>");
                 }
-            }
-            else response.sendRedirect("error?pagina=exists");
           
           
         }

@@ -56,27 +56,32 @@ public class modificarImagen extends HttpServlet {
           
           connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nilmc\\Desktop\\LAB1.db");
           
-                final String path = "C:\\Users\\nilmc\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
+                final String path = "C:\\Users\\nilmc\\OneDrive\\Documents\\NetBeansProjects\\Lab2_AD\\web\\imagenes";
                 final Part filePart = request.getPart("imagen");
-                String type = filePart.getContentType();
-                if (!type.equals("image/jpeg")) {
-                    response.sendRedirect("error?pagina=formatM");
-                    return;
-                }
-                final String fileName = getFileName(filePart);
-                
-                PreparedStatement ps = connection.prepareStatement("select * from imagenes where nombre=?");
-                ps.setString(1, fileName);
+                String fileName = null;
+                if (filePart.getSize() != 0) {
+                    String type = filePart.getContentType();
+                    if (!type.equals("image/jpeg")) {
+                        response.sendRedirect("error?pagina=formatM");
+                        return;
+                    }
+                    fileName = getFileName(filePart);
 
-                ResultSet rs = ps.executeQuery();
-            
+                    PreparedStatement ps = connection.prepareStatement("select * from imagenes where nombre=?");
+                    ps.setString(1, fileName);
 
-                if (!rs.next()) {
+                    ResultSet rs = ps.executeQuery();
+                    
+                    if (rs.next()) {
+                        fileName = fileName + request.getParameter("id");
+                    }
+
+
                     OutputStream outS = null;
                     InputStream filecontent = null;
                     try {
                         outS = new FileOutputStream(new File(path + File.separator
-                                + fileName));
+                            + fileName));
                         filecontent = filePart.getInputStream();
 
                         int read = 0;
@@ -99,6 +104,15 @@ public class modificarImagen extends HttpServlet {
                             filecontent.close();
                         }
                     }
+                }
+                else {
+                    PreparedStatement ps = connection.prepareStatement("select nombre from imagenes where id_imagen=?");
+                    ps.setInt(1, Integer.parseInt(request.getParameter("id")));
+
+                    ResultSet rs = ps.executeQuery();
+                    
+                    fileName = rs.getString(1);
+                }
 
                     int id = Integer.parseInt(request.getParameter("id"));  //Perque no agafa l'1 si es passa per parametre?
                     String titulo = request.getParameter("titulo");
@@ -130,8 +144,6 @@ public class modificarImagen extends HttpServlet {
                                       + "</body>"
                                     + "</html>");
                     }
-                }
-                else response.sendRedirect("error?pagina=existsM");
           
         }
         catch(SQLException e)
