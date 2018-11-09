@@ -25,12 +25,18 @@
         
                 
     <sql:query dataSource = "${snapshot}" var = "result">
-        SELECT id_imagen, nombre, autor from imagenes
+        SELECT * from imagenes
     </sql:query>
     <body>
         <h2>Todas las imagenes</h2>
-        <table border = "1" width = "50%">
+        <table border = "1" width = "100%">
          <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Palabras Clave</th>
+            <th>Autor</th>
+            <th>Fecha de Creacion</th>
+            <th>Fecha de Alta</th>
             <th>Nombre</th>
             <th>Imagen</th>
             <th>Modificar</th>
@@ -38,6 +44,12 @@
          
          <c:forEach var = "row" items = "${result.rows}">
             <tr>
+               <td> <c:out value = "${row.titulo}"/></td>
+               <td> <c:out value = "${row.descripcion}"/></td>
+               <td> <c:out value = "${row.palabras_clave}"/></td>
+               <td> <c:out value = "${row.autor}"/></td>
+               <td> <c:out value = "${row.fecha_creacion}"/></td>
+               <td> <c:out value = "${row.fecha_alta}"/></td>
                <td> <c:out value = "${row.nombre}"/></td>
                <td> <a href="imagenes\\<c:out value = "${row.nombre}"/>" target="_blank"> Link </a> </td>
                <c:choose>

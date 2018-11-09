@@ -66,7 +66,7 @@ public class buscarImagen extends HttpServlet {
             int pos = 0;
             for (int i = 0; i < 4; i++){
                 if(request.getParameter(campos[i]) != null && !request.getParameter(campos[i]).isEmpty()){
-                    query = pos > 0 ? query + " and " + campos[i] + "= '" + request.getParameter(campos[i]) + "'" : query + " where "+ campos[i] + " = '" + request.getParameter(campos[i]) + "'";
+                    query = pos > 0 ? query + " and " + campos[i] + "= '" + request.getParameter(campos[i]) + "'" : query + " where "+ campos[i] + " like '%" + request.getParameter(campos[i]) + "%'";
                     pos++;
                 }
             }
