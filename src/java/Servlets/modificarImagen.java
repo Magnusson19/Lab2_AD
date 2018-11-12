@@ -119,19 +119,20 @@ public class modificarImagen extends HttpServlet {
                     String descripcion = request.getParameter("descripcion");
                     String palabras_clave = request.getParameter("palabras_clave");
                     String autor = request.getParameter("autor");
+                    String usuario = request.getParameter("usuario");
                     String fecha_creacion = request.getParameter("fecha_creacion");
 
 
                     PreparedStatement statement = connection.prepareStatement("update imagenes set titulo=?, descripcion=?,"
-                                                                             +"palabras_clave=?, autor=?, fecha_creacion=?, nombre=? where id_imagen=?");
+                                                                             +"palabras_clave=?, autor=?, usuario=?, fecha_creacion=?, nombre=? where id_imagen=?");
 
                     statement.setString(1,titulo);
                     statement.setString(2,descripcion);
                     statement.setString(3,palabras_clave);
                     statement.setString(4,autor);
-                    statement.setString(5,fecha_creacion);
-                    statement.setString(6,fileName);
-                    statement.setInt(7, id);
+                    statement.setString(6,fecha_creacion);
+                    statement.setString(7,fileName);
+                    statement.setInt(8, id);
 
                     int i = statement.executeUpdate();
 

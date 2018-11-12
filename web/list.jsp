@@ -35,6 +35,7 @@
             <th>Descripcion</th>
             <th>Palabras Clave</th>
             <th>Autor</th>
+            <th>Usuario</th>
             <th>Fecha de Creacion</th>
             <th>Fecha de Alta</th>
             <th>Nombre</th>
@@ -48,17 +49,18 @@
                <td> <c:out value = "${row.descripcion}"/></td>
                <td> <c:out value = "${row.palabras_clave}"/></td>
                <td> <c:out value = "${row.autor}"/></td>
+               <td> <c:out value="${sessionScope.nombre}"/></td>
                <td> <c:out value = "${row.fecha_creacion}"/></td>
                <td> <c:out value = "${row.fecha_alta}"/></td>
                <td> <c:out value = "${row.nombre}"/></td>
                <td> <a href="imagenes\\<c:out value = "${row.nombre}"/>" target="_blank"> Link </a> </td>
                <c:choose>
-                   <c:when test="${sessionScope.nombre == row.autor}">
+                   <c:when test="${sessionScope.nombre == row.usuario}">
                        <td><a href="modificarImagen.jsp?id=<c:out value = "${row.id_imagen}"/>"> Modificar imatge </a></td>
                    </c:when>
                    
-                   <c:when test="${sessionScope.nombre != row.autor}">
-                       <td>No ets l'autor</td>
+                   <c:when test="${sessionScope.nombre != row.usuario}">
+                       <td>No has enregistrat aquesta imatge</td>
                    </c:when>
                </c:choose>
             </tr>

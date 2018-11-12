@@ -42,6 +42,8 @@
             <label for="imagen"><b>Inserta Imagen</b></label>
             <input type="file" name="imagen" accept="image/JPEG" required>
             <br><br>
+            <input type="hidden" name="usuario" value="${sessionScope.nombre}">
+            <br>
             <input type="submit" value="Submit" class="botonMenu">
         </form>
     </body>

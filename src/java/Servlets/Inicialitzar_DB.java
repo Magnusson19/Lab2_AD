@@ -54,9 +54,9 @@ public class Inicialitzar_DB extends HttpServlet {
           statement.executeUpdate("drop table if exists imagenes");
           
           statement.executeUpdate("create table imagenes (id_imagen int primary key, titulo string, descripcion string," 
-                                + "palabras_clave string, autor string, fecha_creacion string, nombre string, fecha_alta string)");
+                                + "palabras_clave string, autor string, usuario string, fecha_creacion string, nombre string, fecha_alta string)");
           
-          statement.executeUpdate("insert into imagenes values (1,'A','hola aixo es un text','A','A','1111-01-01','s','1111-01-01')");
+          statement.executeUpdate("insert into imagenes values (1,'A','hola aixo es un text','A','A','Nil','1111-01-01','s','1111-01-01')");
           
           statement.executeUpdate("create table usuarios (id_usuario string primary key, password string)");
           statement.executeUpdate("insert into usuarios values('Silvia','12345')");

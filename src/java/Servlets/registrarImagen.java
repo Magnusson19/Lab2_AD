@@ -121,20 +121,22 @@ public class registrarImagen extends HttpServlet {
                 String descripcion = request.getParameter("descripcion");
                 String palabras_clave = request.getParameter("palabras_clave");
                 String autor = request.getParameter("autor");
+                String usuario = request.getParameter("usuario");
                 String fecha_creacion = request.getParameter("fecha_creacion");
                 java.util.Date fecha_alta = new Date();
                 
                 
-                PreparedStatement statement = connection.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement statement = connection.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
                 statement.setInt(1, id+1); //EL 2 ES PROVISIONAL
                 statement.setString(2,titulo);
                 statement.setString(3,descripcion);
                 statement.setString(4,palabras_clave);
                 statement.setString(5,autor);
-                statement.setString(6,fecha_creacion);
-                statement.setString(7,fileName);
-                statement.setString(8, fecha_alta.toString());
+                statement.setString(6, usuario);
+                statement.setString(7,fecha_creacion);
+                statement.setString(8,fileName);
+                statement.setString(9, fecha_alta.toString());
                                                                                             
                 int i = statement.executeUpdate();
                 
